@@ -1,9 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/image/logo/logo.png";
-
+import { FaUserTie } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthUserContext } from "../../../Context/UserContext";
+import { toast } from "react-toastify";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, userLogout } = useContext(AuthUserContext);
+
+  const handleLogout = () => {
+    userLogout()
+      .then(() => {
+        // Sign-out successful.
+        toast.success("user logOut", { autoClose: 4000 });
+      })
+      .catch((error) => {
+        // An error happened.
+        toast.error(error, { autoClose: 4000 });
+      });
+  };
+
   return (
     <div className="    px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -66,20 +83,50 @@ const Header = () => {
           </li>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex">
+          {user?.uid ? (
+            <>
+              <li>
+                <Link to="/">
+                  <button onClick={handleLogout} className="btn btn-outline">
+                    LogOut
+                  </button>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">
+                  <button className="btn btn-outline">signIn</button>
+                </Link>
+              </li>
+              <li>
+                <Link to="register">
+                  <button className="btn btn-outline">signUp</button>
+                </Link>
+              </li>
+            </>
+          )}
+
           <li>
-            <Link to="/">
-              <button className="btn btn-outline">LogOut</button>
-            </Link>
-          </li>
-          <li>
-            <Link to="/login">
-              <button className="btn btn-outline">signIn</button>
-            </Link>
-          </li>
-          <li>
-            <Link to="register">
-              <button className="btn btn-outline">signUp</button>
-            </Link>
+            {user?.uid ? (
+              <>
+                <Link>
+                  <img
+                    className="rounded h-6"
+                    src={user?.photoURL}
+                    alt="user profile"
+                    title={user?.displayName}
+                  />
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <FaUserTie></FaUserTie>
+                </Link>
+              </>
+            )}
           </li>
         </ul>
         <div className="lg:hidden">
