@@ -3,6 +3,8 @@ import Main from "../component/Layout/Main";
 import AddService from "../component/Pages/AddService/AddService";
 import Blog from "../component/Pages/Blog/Blog";
 import Home from "../component/Pages/Home/Home";
+import AllService from "../component/Pages/Home/Service/AllService";
+import DetailsPage from "../component/Pages/Home/Service/DetailsPage/DetailsPage";
 import Login from "../component/Pages/Login/Login";
 import MyReview from "../component/Pages/MyReview/MyReview";
 import Register from "../component/Pages/Register/Register";
@@ -15,6 +17,14 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <Home></Home> },
+
+      {
+        path: "/all_service",
+        loader: () => fetch("http://localhost:5000/allServices"),
+        element: <AllService></AllService>,
+      },
+
+      { path: "/Service_Details/:id", element: <DetailsPage></DetailsPage> },
 
       { path: "/add_service", element: <AddService></AddService> },
 

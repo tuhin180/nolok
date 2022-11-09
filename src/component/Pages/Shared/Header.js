@@ -113,7 +113,11 @@ const Header = () => {
               <>
                 <Link>
                   <img
-                    className="rounded h-6"
+                    className="rounded w-10"
+                    style={{
+                      clipPath:
+                        "polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%)",
+                    }}
                     src={user?.photoURL}
                     alt="user profile"
                     title={user?.displayName}

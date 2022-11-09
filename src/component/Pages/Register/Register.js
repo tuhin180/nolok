@@ -27,7 +27,7 @@ const Register = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+
         userProfile(name, img)
           .then(() => {
             // Profile updated!
@@ -55,7 +55,6 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         navigate(from, { replace: true });
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
