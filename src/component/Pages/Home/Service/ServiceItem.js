@@ -21,7 +21,9 @@ const ServiceItem = ({ service }) => {
             <span className=" -top-2 text-xl">{price}</span>
           </div>
 
-          <p className="text-gray-700 text-base mb-4">{details}</p>
+          <p className="text-gray-700 text-base mb-4">
+            {details.slice(0, 50)}...
+          </p>
           <Link to={`/Service_Details/${_id}`}>
             <button
               type="button"

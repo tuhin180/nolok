@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { AuthUserContext } from "../../../Context/UserContext";
 
 const AddReview = ({ service }) => {
@@ -19,10 +20,20 @@ const AddReview = ({ service }) => {
       body: JSON.stringify({
         title,
         description,
+        userName: user.displayName,
         email: user.email,
+        userImage: user.photoURL,
+        serviceName: service.title,
         serviceId: service._id,
       }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledge) {
+          console.log(data);
+          toast.success("review is created", { autoClose: 4000 });
+        }
+      });
     form.reset();
   };
   return (
@@ -39,7 +50,7 @@ const AddReview = ({ service }) => {
           <textarea
             className="textarea textarea-success w-1/2 mb-2"
             name="description"
-            placeholder="Bio"
+            placeholder="Details"
             required
           ></textarea>
         </div>

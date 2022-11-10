@@ -145,7 +145,7 @@ const Login = () => {
         Don't have an account?
         <Link
           rel="noopener noreferrer"
-          href="#"
+          to="/register"
           className="underline dark:text-gray-100"
         >
           Sign up

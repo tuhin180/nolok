@@ -9,6 +9,7 @@ import Login from "../component/Pages/Login/Login";
 import MyReview from "../component/Pages/MyReview/MyReview";
 import Register from "../component/Pages/Register/Register";
 import ErrorPage from "../component/Pages/Shared/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 const routes = createBrowserRouter([
   {
@@ -28,12 +29,30 @@ const routes = createBrowserRouter([
         path: "/Service_Details/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:5000/Service_Details/${params.id}`),
-        element: <DetailsPage></DetailsPage>,
+        element: (
+          <PrivateRoutes>
+            <DetailsPage></DetailsPage>
+          </PrivateRoutes>
+        ),
       },
 
-      { path: "/add_service", element: <AddService></AddService> },
+      {
+        path: "/add_service",
+        element: (
+          <PrivateRoutes>
+            <AddService></AddService>
+          </PrivateRoutes>
+        ),
+      },
 
-      { path: "/my_review", element: <MyReview></MyReview> },
+      {
+        path: "/my_review",
+        element: (
+          <PrivateRoutes>
+            <MyReview></MyReview>
+          </PrivateRoutes>
+        ),
+      },
 
       { path: "/blogs", element: <Blog></Blog> },
 

@@ -56,20 +56,19 @@ const UserContext = ({ children }) => {
 
   // socila log in
   const googleLogin = (googleProvider) => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   // 6.hold user status
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-      setLoading(false);
       setUser(currentUser);
+      setLoading(false);
     });
-    return () => {
-      return unsubscribe();
-    };
-  }, []);
+    return () => unsubscribe();
+  }, [user]);
   const authInfo = {
     user,
     loading,
