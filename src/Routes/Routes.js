@@ -21,14 +21,17 @@ const routes = createBrowserRouter([
 
       {
         path: "/all_service",
-        loader: () => fetch("http://localhost:5000/allServices"),
+        loader: () =>
+          fetch("https://assignment-11-nolok-server.vercel.app/allServices"),
         element: <AllService></AllService>,
       },
 
       {
         path: "/Service_Details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/Service_Details/${params.id}`),
+          fetch(
+            `https://assignment-11-nolok-server.vercel.app/Service_Details/${params.id}`
+          ),
         element: (
           <PrivateRoutes>
             <DetailsPage></DetailsPage>

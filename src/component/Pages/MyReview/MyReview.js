@@ -14,11 +14,14 @@ const MyReview = () => {
   const [myReviews, setMyreviews] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my_review?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer${localStorage.getItem("nolok-tokon")}`,
-      },
-    })
+    fetch(
+      `https://assignment-11-nolok-server.vercel.app/my_review?email=${user.email}`,
+      {
+        headers: {
+          authorization: `Bearer${localStorage.getItem("nolok-tokon")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           userLogout();
@@ -34,7 +37,7 @@ const MyReview = () => {
   const handleDelete = (_id) => {
     const proceed = window.confirm("are you sure you want to delete");
     if (proceed) {
-      fetch(`http://localhost:5000/review/${_id}`, {
+      fetch(`https://assignment-11-nolok-server.vercel.app/review/${_id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

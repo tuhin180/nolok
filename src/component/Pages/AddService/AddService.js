@@ -13,7 +13,7 @@ const AddService = () => {
     const productDescription = form.productDescription.value;
 
     console.log(productName, productImg, productPrice, productDescription);
-    fetch("http://localhost:5000/services", {
+    fetch("https://assignment-11-nolok-server.vercel.app/services", {
       method: "POST",
       headers: {
         "content-type": "application/json",

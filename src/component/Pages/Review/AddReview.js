@@ -12,7 +12,7 @@ const AddReview = ({ service }) => {
     const title = form.title.value;
     const description = form.description.value;
 
-    fetch("http://localhost:5000/review", {
+    fetch("https://assignment-11-nolok-server.vercel.app/review", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -11,7 +11,7 @@ const MyIndividualReviews = ({ rev, handleDelete }) => {
     const updatedTitle = form.title.value;
     const updatedDescription = form.description.value;
 
-    fetch(`http://localhost:5000/review/${_id}`, {
+    fetch(`https://assignment-11-nolok-server.vercel.app/review/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
