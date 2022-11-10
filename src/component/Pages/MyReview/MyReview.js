@@ -8,14 +8,23 @@ import useTitle from "../../../Hooks/useTitle";
 import MyIndividualReviews from "./MyIndividualReviews";
 
 const MyReview = () => {
-  const { user } = useContext(AuthUserContext);
+  const { user, userLogout } = useContext(AuthUserContext);
   useTitle("My Review");
 
   const [myReviews, setMyreviews] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my_review?email=${user.email}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:5000/my_review?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer${localStorage.getItem("nolok-tokon")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          userLogout();
+        }
+        return res.json();
+      })
       .then((data) => setMyreviews(data));
   }, [user?.email]);
   if (!myReviews) {
