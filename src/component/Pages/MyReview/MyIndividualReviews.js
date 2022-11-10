@@ -1,19 +1,34 @@
 import React from "react";
+import { toast } from "react-toastify";
 
-const MyIndividualReviews = ({ rev }) => {
+const MyIndividualReviews = ({ rev, handleDelete }) => {
   const { _id, serviceName, title, description } = rev;
-  const handleDelete = (_id) => {
-    const proceed = window.confirm("are you sure you want to delete");
-    if (proceed) {
-      fetch(`http://localhost:5000/review/${_id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    }
-  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const updatedTitle = form.title.value;
+    const updatedDescription = form.description.value;
+
+    fetch(`http://localhost:5000/review/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        title: updatedTitle,
+        description: updatedDescription,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("review updated");
+        }
+      });
+  };
 
   return (
     <div className="mt-5">
@@ -44,12 +59,14 @@ const MyIndividualReviews = ({ rev }) => {
                       name="title"
                       placeholder="Type here"
                       className="input input-bordered input-success w-full max-w-xs mb-2"
+                      defaultValue={title}
                     />
                     <input
                       type="text"
                       name="description"
                       placeholder="Type here"
                       className="input input-bordered input-success w-full max-w-xs mb-2"
+                      defaultValue={description}
                     />
                   </div>
                   <input
